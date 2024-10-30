@@ -66,6 +66,9 @@ const onMovieSelect = async (movie, summaryElement, side) => {
     }
 };
 
+let rightCount = 0;
+let leftCount = 0;
+
 const runComparison = () => {
     const leftSideStats = document.querySelectorAll('#left-summary .notification');
     const rightSideStats = document.querySelectorAll('#right-summary .notification');
@@ -79,12 +82,28 @@ const runComparison = () => {
         if (rightSideValue > leftSideValue) {
             leftStat.classList.remove('is-primary');
             leftStat.classList.add('is-warning');
+            rightCount++;
         } else {
             rightStat.classList.remove('is-primary');
             rightStat.classList.add('is-warning');
+            leftCount++;
         }
 
     });
+
+    if (rightCount > leftCount) {
+        console.log(rightMovie.Title)
+        document.querySelector('.winner').classList.remove('is-hidden');
+        document.getElementById('bestmovie').innerText = `${rightMovie.Title} is the best movie`;
+
+    } else {
+        console.log(leftMovie.Title)
+        document.querySelector('.winner').classList.remove('is-hidden');
+        document.getElementById('bestmovie').innerText = `${leftMovie.Title} is the best movie`;
+
+    }
+    console.log(`right: ${rightCount}`);
+    console.log(`left: ${leftCount}`);
 };
 
 const movieTemplate = (movieDetail) => {
